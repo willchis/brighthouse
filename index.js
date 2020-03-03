@@ -1,5 +1,6 @@
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
+var bodyParser = require('body-parser');
 
 const express = require('express');
 const http = require('http')
@@ -10,17 +11,34 @@ const server = http.Server(app);
 let history = [];
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.urlencoded());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public', 'index.html'));
 });
 
 app.post('/submit-form', (req, res) => {
+  console.log(req.body);
   const url = req.body.url;
-  launchChromeAndRunLighthouse(url, opts).then(results => {
-    res.json(results);  
-  });
+  if (url) {
+    launchChromeAndRunLighthouse(url, opts).then(results => {
+      console.log(results.categories);
+      let scores = {
+        "performance": results.categories.performance.score,
+        "seo": results.categories.seo.score,
+        "pwa": results.categories.pwa.score,
+        "accessibility": results.categories.accessibility.score
+      };
+      res.json(scores);  
+    });
+  } else {
+    res.end();
+  }
   
 });
 

@@ -5,25 +5,32 @@
     <title>Brighthouse</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="index.js"></script>
+    <script src="js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
   <body>
-    <div class="is-horizontal-align">
-      <div class="col-10 is-horizontal-align">
+    <div class="">
+      <div class="col-12 is-horizontal-align">
         <h1>brighthouse</h1>
       </div>
     </div>
-    <div class="is-horizontal-align">
-      <div class="col-10">
+    <div class="">
+      <div class="col-12">
         <form method="POST" action="/submit-form">
-        <div class="col">
-          <input type="text" id="" name="url" class="form-control" autocomplete="off" placeholder="Enter URL to audit..." />
-        </div>
-        <div class="is-horizontal-align">
+          <div class="col">
+            <input type="text" id="url" name="url" class="form-control" autocomplete="off" placeholder="Enter URL to audit..." />
+          </div>
+          <div class="is-horizontal-align">
             <button class="button success col">Check!</button>
-          </span>
-      </form>
+          </div>
+          <div class="is-horizontal-align">
+            <div class="loader"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row is-horizontal-align">
+      <div id="results" class="col-10">
       </div>
     </div>
   </body>
