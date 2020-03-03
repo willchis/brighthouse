@@ -12,19 +12,20 @@
   </head>
   <body>
     <div class="container-fluid">
-
-      <h1>Brighthouse</h1>
-
-      <ul id="messages" class="list-group"></ul>
-      <form>
+      <h1>brighthouse</h1>
+      <form method="POST" action="/submit-form">
         <div class="input-group">
-          <input type="text" id="" class="form-control" autocomplete="off" />
+          <input type="text" id="" name="url" class="form-control" autocomplete="off" />
           <span class="input-group-btn">
-            <button class="btn">Send</button>
+            <button class="btn">Check!</button>
           </span>
          
         </div>
       </form>
+      <form method="POST" action="/submit-form">
+  <input type="text" name="username" />
+  <input type="submit" />
+</form>
     </div>
   </body>
 </html>

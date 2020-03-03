@@ -10,9 +10,18 @@ const server = http.Server(app);
 let history = [];
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.urlencoded());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public', 'index.html'));
+});
+
+app.post('/submit-form', (req, res) => {
+  const url = req.body.url;
+  launchChromeAndRunLighthouse('https://example.com', opts).then(results => {
+    res.json(results);  
+  });
+  
 });
 
 const port = process.env.PORT || 5000;
@@ -37,8 +46,3 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
 const opts = {
   chromeFlags: ['--show-paint-rects']
 };
-
-// Usage:
-launchChromeAndRunLighthouse('https://example.com', opts).then(results => {
-  // Use results!
-});
