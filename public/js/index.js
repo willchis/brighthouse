@@ -19,9 +19,10 @@ $(() => {
 	    		for (const property in response) {
 	    			let score = response[property];
 	    			if (score) {
-	    				score = string.trimLeft("0.1");
+	    				score = score.toString().substring(2);
 	    			}
-	    			$("#results").append(`<div class="col text-center">${property}: <div class="col">${score}%</div>`)
+	    			let percent = score.indexOf("error") == -1 ? '%' : '';
+	    			$("#results").append(`<div class="col text-center">${property}: <div class="col">${score}${percent}</div>`)
 				}
 	    	}
 	    });

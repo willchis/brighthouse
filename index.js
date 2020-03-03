@@ -27,14 +27,18 @@ app.post('/submit-form', (req, res) => {
   const url = req.body.url;
   if (url) {
     launchChromeAndRunLighthouse(url, opts).then(results => {
-      console.log(results.categories);
-      let scores = {
-        "performance": results.categories.performance.score,
-        "seo": results.categories.seo.score,
-        "pwa": results.categories.pwa.score,
-        "accessibility": results.categories.accessibility.score
-      };
-      res.json(scores);  
+      if (results && results.categories) {
+        console.log(results.categories);
+        let scores = {
+          "performance": results.categories.performance.score,
+          "seo": results.categories.seo.score,
+          "pwa": results.categories.pwa.score,
+          "accessibility": results.categories.accessibility.score
+        };
+        res.json(scores);
+      } else {
+        res.json({ "Error": "A timeout error occurred." });
+      }
     });
   } else {
     res.end();
@@ -57,6 +61,8 @@ function launchChromeAndRunLighthouse(url, opts, config = null) {
       // use results.report for the HTML/JSON/CSV output as a string
       // use results.artifacts for the trace/screenshots/other specific case you need (rarer)
       return chrome.kill().then(() => results.lhr)
+    }).catch(error => {
+      return chrome.kill().then(() => '');
     });
   });
 }
