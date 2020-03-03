@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.post('/submit-form', (req, res) => {
   const url = req.body.url;
-  launchChromeAndRunLighthouse('https://example.com', opts).then(results => {
+  launchChromeAndRunLighthouse(url, opts).then(results => {
     res.json(results);  
   });
   
