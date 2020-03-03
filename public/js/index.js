@@ -1,7 +1,7 @@
 $(() => {
 	$('form').submit(function(event){
 	    event.preventDefault(); //prevent default action 
-	    $("#results").html();
+	    $("#results").html('');
 	    var post_url = $(this).attr("action"); //get form action url
 	    var request_method = $(this).attr("method"); //get form GET/POST method
 		var form_data = $(this).serialize();
