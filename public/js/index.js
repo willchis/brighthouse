@@ -1,6 +1,7 @@
 $(() => {
 	$('form').submit(function(event){
 	    event.preventDefault(); //prevent default action 
+	    $("#results").html();
 	    var post_url = $(this).attr("action"); //get form action url
 	    var request_method = $(this).attr("method"); //get form GET/POST method
 		var form_data = $(this).serialize();
@@ -16,7 +17,11 @@ $(() => {
 	    	$('.loader').hide();
 	    	if (response) {
 	    		for (const property in response) {
-	    			$("#results").append(`<div class="col">${property}: ${response[property]}</div>`)
+	    			let score = response[property];
+	    			if (score) {
+	    				score = string.trimLeft("0.1");
+	    			}
+	    			$("#results").append(`<div class="col text-center">${property}: <div class="col">${score}%</div>`)
 				}
 	    	}
 	    });
